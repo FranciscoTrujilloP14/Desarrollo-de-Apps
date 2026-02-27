@@ -1,0 +1,87 @@
+<div class="container">
+  <h1>Pokédex - PokéAPI</h1>
+
+  <!-- Sección de búsqueda -->
+  <div class="search-section">
+    <h2>Buscar Pokémon</h2>
+    <div class="search-group">
+      <input 
+        type="text" 
+        [(ngModel)]="selectedPokemon" 
+        placeholder="Ingresa el nombre del Pokémon"
+        class="search-input"
+        (keyup.enter)="loadPokemonByName(selectedPokemon)"
+      />
+      <button (click)="loadPokemonByName(selectedPokemon)" class="btn-search">
+        Buscar
+      </button>
+      <button (click)="loadRandomPokemon()" class="btn-random">
+        Aleatorio
+      </button>
+    </div>
+  </div>
+
+  <!-- Mostrar errores -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Mostrar estado de carga -->
+  <div *ngIf="loading" class="loading">
+    Cargando Pokémon...
+  </div>
+
+  <!-- Mostrar Pokémon actual -->
+  <div *ngIf="pokemonActual && !loading" class="pokemon-detail">
+    <div class="pokemon-card">
+      <div class="pokemon-image">
+        <img [src]="pokemonActual.sprites.front_default" 
+             [alt]="pokemonActual.name"
+             class="sprite">
+      </div>
+      
+      <div class="pokemon-info">
+        <h2>{{ pokemonActual.name | uppercase }}</h2>
+        <p class="pokemon-id">#{{ pokemonActual.id }}</p>
+
+        <div class="info-group">
+          <h3>Tipos:</h3>
+          <div class="types">
+            <span *ngFor="let type of pokemonActual.types" 
+                  class="type-badge"
+                  [ngClass]="'type-' + type.type.name">
+              {{ type.type.name }}
+            </span>
+          </div>
+        </div>
+
+        <div class="info-group">
+          <h3>Características Físicas:</h3>
+          <p><strong>Altura:</strong> {{ pokemonActual.height / 10 }}m</p>
+          <p><strong>Peso:</strong> {{ pokemonActual.weight / 10 }}kg</p>
+        </div>
+
+        <div class="info-group">
+          <h3>Habilidades:</h3>
+          <ul class="abilities">
+            <li *ngFor="let ability of pokemonActual.abilities">
+              {{ ability.ability.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de lista de Pokémon -->
+  <div class="pokemon-list-section" *ngIf="pokemonList.length > 0">
+    <h2>Lista de Pokémon (Primeros 20)</h2>
+    <div class="pokemon-list">
+      <button *ngFor="let pokemon of pokemonList" 
+              (click)="selectPokemonFromList(pokemon.name)"
+              class="pokemon-item">
+        {{ pokemon.name }}
+      </button>
+    </div>
+  </div>
+</div>
