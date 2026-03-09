@@ -1,0 +1,31 @@
+<div class="header-detail">
+  <a routerLink="/" class="back-btn">← Volver</a>
+</div>
+
+<div class="detail-container" *ngIf="movie; else notFound">
+  <div class="movie-detail">
+    <div class="movie-image-container">
+      <img [src]="movie.image" [alt]="movie.title" class="movie-image-large">
+    </div>
+    <div class="movie-info">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      <p class="movie-category">Categoría: {{ movie.category }}</p>
+      <p class="movie-description">{{ movie.description }}</p>
+      
+      <div class="buttons">
+        @if (!isInMyMovies) {
+          <button (click)="addToMyMovies()" class="add-btn">Agregar a mis películas</button>
+        } @else {
+          <button (click)="removeFromMyMovies()" class="remove-btn">Remover de mis películas</button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="not-found">
+    <h2>Película no encontrada</h2>
+    <a routerLink="/" class="back-btn">Volver al inicio</a>
+  </div>
+</ng-template>

@@ -1,0 +1,27 @@
+<div class="header">
+  <a routerLink="/" class="back-btn">← Volver</a>
+  <h1 class="title">Mis películas</h1>
+</div>
+
+<div class="container">
+  @if (myMovies.length > 0) {
+    <div class="movies-grid">
+      @for (movie of myMovies; track movie.id) {
+        <div class="movie-card">
+          <img [src]="movie.image" [alt]="movie.title" class="movie-image">
+          <h3 class="movie-title">{{ movie.title }}</h3>
+          <div class="card-buttons">
+            <a [routerLink]="['/detail', movie.id]" class="view-btn">Ver detalles</a>
+            <button (click)="removeMovie(movie.id)" class="remove-btn">Remover</button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <h2>No tienes películas agregadas</h2>
+      <p>Ve al inicio y agrega tus películas favoritas</p>
+      <a routerLink="/" class="back-btn">Ir al inicio</a>
+    </div>
+  }
+</div>

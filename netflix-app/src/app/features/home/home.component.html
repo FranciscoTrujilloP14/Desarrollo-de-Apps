@@ -1,0 +1,25 @@
+<div class="header">
+  <h1 class="title">NETFLIX</h1>
+  <div class="my-movies">
+    <a routerLink="/my-movies" class="my-movies-btn">
+      Mis películas ({{ myMoviesCount }})
+    </a>
+  </div>
+</div>
+
+<div class="container">
+  @for (category of categories; track category) {
+    <div class="category-section">
+      <h2 class="category-title">{{ category }}</h2>
+      <div class="movies-grid">
+        @for (movie of movies[category]; track movie.id) {
+          <div class="movie-card">
+            <img [src]="movie.image" [alt]="movie.title" class="movie-image">
+            <h3 class="movie-title">{{ movie.title }}</h3>
+            <a [routerLink]="['/detail', movie.id]" class="watch-btn">Ver</a>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

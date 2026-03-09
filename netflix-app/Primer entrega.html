@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+     <h2>TO DO</h2>
+     <br>
+     <label>Tarea</label>
+     <input type="text" id="tarea">
+     <button type="button" onclick="tareagregar()">Add</button>
+     <br>
+     <ul id="lista"></ul>
+
+     <script>
+        function tareagregar(){
+            let caja = document.getElementById("tarea");
+            let texto = caja.value;
+
+            if (texto !== "") {
+                u(texto);
+                caja.value = "";
+            }
+        }
+
+        function u(dato) {
+            let lista = document.getElementById("lista");
+            let nuevoItem = document.createElement("li");
+
+            nuevoItem.textContent = dato;
+            lista.appendChild(nuevoItem);
+        }
+     </script>
+
+
+</body>
+</html>
